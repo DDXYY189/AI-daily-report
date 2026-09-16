@@ -1,0 +1,25 @@
+# 统一换行：仓库内一律 LF，检出到工作区也是 LF。
+#
+# 不写这条时，Windows 上的 core.autocrlf 会让每次 git 操作都刷一整屏
+# "LF will be replaced by CRLF" 警告，跨平台协作时还会产生整文件级别的假差异。
+# 这个项目是 Node/Vite 前端，LF 是各平台的通行约定。
+* text=auto eol=lf
+
+# 明确声明二进制，避免 git 把它们当文本做换行转换而损坏文件
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+
+# SVG 是文本，跟着统一换行走
+*.svg text eol=lf
+
+# 锁文件体积大且逐行 diff 没有意义，也不该计入 GitHub 的语言统计
+package-lock.json -diff linguist-generated

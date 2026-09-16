@@ -9,6 +9,8 @@ import './StrokeText.css'
  * StrokeText（React Bits）· GSAP 描边描画文字
  * ============================================================================
  * 来源：reactbits.dev 的 StrokeText 组件，JavaScript + CSS 变体。
+ * 许可：MIT + Commons Clause License Condition v1.0，Copyright (c) 2026 David Haz。
+ *       完整条款与使用限制见仓库根目录的 NOTICE 文件。本文件不在本站 MIT 许可范围内。
  *
  * 相对上游源码的改动：
  *

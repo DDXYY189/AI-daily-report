@@ -449,3 +449,24 @@ React 19 · Vite 8 · Tailwind CSS v4 · Motion（Framer Motion 的现行包名�
 GSAP + ScrollTrigger · Lucide React · ogl（WebGL）· TypeScript
 
 字体：Geist（自托管，负责拉丁字符与数字）＋ 系统 CJK 字体栈（负责中文）。
+
+## 许可
+
+作者原创部分适用 [MIT 许可](LICENSE)。
+
+**但本仓库包含第三方代码，它们不由本仓库的 MIT 许可覆盖：**
+
+- `src/components/hero/GhostFibers.*`、`src/components/ui/GlowCursor.*`、
+  `src/components/ui/StrokeText.*` 来自 [React Bits](https://reactbits.dev)，
+  适用 **MIT + Commons Clause License Condition v1.0**（Copyright (c) 2026 David Haz）。
+  意思是：可以自由使用（含商用）在自己的网站/产品里，**但不能把这些组件本身
+  出售、再授权或作为组件库再分发**。因此它不属于 OSI 认可的开源许可 ——
+  若以后要把本仓库当作组件库分发，需先剥离这三个组件。
+- 字体 Geist / Geist Mono 适用 SIL Open Font License 1.1。
+- 快照里的新闻、论文与仓库数据版权归 Hacker News / arXiv / GitHub 及各原文站点所有。
+
+完整的版权声明、条款原文与依赖许可清单见 [NOTICE](NOTICE)。
+
+> 仓库里还放了 `.gitattributes`，把换行统一为 LF（`* text=auto eol=lf`）。
+> 不写它的话，Windows 上 `core.autocrlf` 会让每次 git 操作都刷一屏
+> `LF will be replaced by CRLF` 警告，跨平台协作时还会产生整文件级别的假差异。

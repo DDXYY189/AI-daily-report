@@ -10,6 +10,9 @@ import './GlowCursor.css'
  * （从官方 registry 取源：https://reactbits.dev/r/GlowCursor-JS-CSS）。
  * 依赖 ogl，项目里已经装过。
  *
+ * 许可：MIT + Commons Clause License Condition v1.0，Copyright (c) 2026 David Haz。
+ *       完整条款与使用限制见仓库根目录的 NOTICE 文件。本文件不在本站 MIT 许可范围内。
+ *
  * 相对上游源码只做了两处：
  *   1. 转成 TSX 并补类型（项目没开 allowJs）；
  *   2. 其余逻辑、shader、props 默认值**一字未改**。

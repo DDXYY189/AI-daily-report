@@ -1,0 +1,130 @@
+# NOTICE · 第三方组件与数据来源
+
+本仓库（AI 日报 / AI-daily-report）作者原创的部分适用根目录 `LICENSE` 里的 MIT 许可。
+**下列第三方内容不在该许可范围内**，各自适用其自身条款。本文件同时用于满足
+这些条款要求的「在副本中保留版权与许可声明」义务。
+
+---
+
+## 1. 随仓库一起分发的第三方组件代码
+
+仓库中以下文件是从 [React Bits](https://reactbits.dev) 复制的组件源码，
+已按本站需要做过改动（一律是类型与适配层面的改动，各处文件头有说明）：
+
+| 文件 | 上游组件 |
+|---|---|
+| `src/components/hero/GhostFibers.tsx` / `.css` | GhostFibers（Backgrounds）|
+| `src/components/ui/GlowCursor.tsx` / `.css` | GlowCursor（Animations）|
+| `src/components/ui/StrokeText.tsx` / `.css` | StrokeText（Text Animations）|
+
+上游取得方式：官方 registry，例如 `https://reactbits.dev/r/GlowCursor-JS-CSS`。
+
+### 许可条款（原文）
+
+```
+MIT + Commons Clause License Condition v1.0
+
+Copyright (c) 2026 David Haz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, and distribute the Software as part of
+an application, website, or product, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+## Commons Clause Restriction
+
+You may use this Software, including for any commercial purpose, so long as you
+do not sell, sublicense, or redistribute the components themselves — whether
+alone, in a bundle, or as a ported version.
+
+## No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### 这条许可是什么意思（大白话）
+
+- **可以用**：包括商用，把这些组件用在自己的网站 / 应用 / 产品里，本站就是这么用的。
+- **不能做**：把这些组件本身拿去**出售、再授权、或作为组件库再分发** —— 单独发、
+  打包发、或改一改再发都不行。
+- **必须做**：保留上面的版权与许可声明。所以本文件存在，且各组件文件头部也带了一行标注。
+
+> 请注意 Commons Clause 之后它**不再是 OSI 认可的开源许可**。如果你以后想把这个仓库
+> 做成「组件库」来分发，需要先把这三个组件剥离出去。
+
+---
+
+## 2. 字体
+
+页面使用 **Geist** 与 **Geist Mono**，通过 npm 包
+`@fontsource-variable/geist` / `@fontsource-variable/geist-mono` 自托管
+（构建产物里会带上 woff2，仓库本身不含字体二进制）。
+
+```
+Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font)
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+```
+
+完整条款见 `node_modules/@fontsource-variable/geist/LICENSE`
+（SIL Open Font License 1.1，2007-02-26 版）。
+
+中文部分不使用网络字体，直接走各系统的 CJK 字体栈，因此不涉及额外字体授权。
+
+---
+
+## 3. npm 依赖
+
+这些是运行时/构建依赖，通过包管理器安装，**源码不随本仓库分发**。
+许可信息取自各包 `package.json` 的 `license` 字段（实测值）：
+
+| 包 | 许可 |
+|---|---|
+| `react` / `react-dom` | MIT |
+| `vite` / `@vitejs/plugin-react` | MIT |
+| `tailwindcss` / `@tailwindcss/vite` | MIT |
+| `motion`（Framer Motion 的现行包名）| MIT |
+| `lucide-react` | ISC |
+| `fast-xml-parser` | MIT |
+| **`gsap`** | **Standard "no charge" license**（非 MIT，见下）|
+| **`ogl`** | **Unlicense**（公共领域）|
+| `typescript`（仅构建期）| Apache-2.0 |
+
+### GSAP 需要单独注意
+
+`gsap` 用的是 [Standard "no charge" license](https://gsap.com/standard-license)，
+**不是 MIT**。它免费用于绝大多数场景（含商用），但如果你要做一个「主要价值就来自
+GSAP 本身」的产品再转售，需要另行购买商业许可。本站在页脚字标上使用它，
+属于常规用途。若想彻底规避这条，把页脚的 StrokeText 换成纯 CSS 描边动画即可整块移除 GSAP。
+
+---
+
+## 4. 内容与数据来源
+
+`src/data/snapshot.json` 与 `src/data/snapshots/` 下的快照由 `scripts/sync-data.mjs`
+从下列公开来源抓取，**内容版权归各自来源所有**，本仓库只做筛选、归类与排版：
+
+| 板块 | 来源 |
+|---|---|
+| 行业新闻 | Hacker News（Algolia 检索 API）|
+| 论文速递 | arXiv 官方 API（`cs.AI` / `cs.LG` / `cs.CL`）|
+| 开源项目 | GitHub Search API |
+| 配图与摘要 | 各原文页面公开的 Open Graph 元信息 |
+
+快照里保留了指向原文的链接（新闻链接到原文、论文链接到 arXiv 摘要页、仓库链接到
+GitHub），因为这些都是公开可访问的页面。抓取到的配图仅以 URL 形式引用，
+**图片文件本身没有被复制进本仓库**。
+
+如果你的用途涉及再发布这些内容，请自行确认各来源的使用条款
+（[Hacker News](https://news.ycombinator.com/legal)、
+[arXiv](https://arxiv.org/help/license)、
+[GitHub](https://docs.github.com/site-policy/github-terms)）。
