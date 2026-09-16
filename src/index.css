@@ -1,0 +1,227 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   AI 日报 · 设计令牌
+   ----------------------------------------------------------------------------
+   设计取向：暗色科技，冷色单一强调色，克制留白。
+
+   锁定规则（三把锁，全站一致，不允许中途翻转）：
+   1. COLOR LOCK  ：只有一个强调色 --color-accent，用于导航激活、链接、
+                    标签、图标、焦点环与主按钮。语义色 --color-danger 仅用于
+                    表单错误态，不参与装饰。
+   2. SHAPE LOCK  ：两档圆角，规则明确且全站执行。
+                    panel   = 18px  卡片 / 面板 / 图片容器
+                    control = 10px  按钮 / 输入框 / 标签 / 徽标
+   3. THEME LOCK  ：全站仅暗色一套主题，没有任何分区反色。
+
+   中文字形由系统 CJK 栈承担，Geist 负责拉丁字符、数字与等宽数据，
+   这样 Issue 号、日期、star 数、arXiv 编号都带等宽技术质感。
+   ========================================================================== */
+
+@theme {
+  /* --- 底色与面（冷灰阶，全程一个色温） ---
+     色阶是**感知均匀**地拉开台阶的，不是随便挑深浅。
+     括号里是 CIE L*（0=纯黑，100=纯白），台阶约 2.4 到 4.3：
+       void 9.25 -> abyss 11.69 -> surface 13.15 -> surface-2 17.45
+     参照：GitHub Dark Dimmed 底色 #22272e 是 15.43，纯黑是 0。
+     早期版本用的是 #06070a 一档（L* 1.92），整个色阶压在 L* 8 以下，
+     人眼在这个区间分辨力最差，卡片和底色糊成一片，整体被读成「一块黑」
+     而不是「深邃」。抬到 L* 9 以上后冷色调才真正可见。
+
+     注意：改这几个值必须同步改 --color-scrim 与 --color-line*，
+     并且要重新核算文字对比度 —— fg-dim 原本刚好压在 5.09:1 的及格线上，
+     背景一抬就会掉到 4.5 以下。 */
+  --color-void: #171a21; /* 页面最底         L* 9.25 */
+  --color-abyss: #1b1f27; /* 分区底（交替用）L* 11.69 */
+  --color-surface: #1e222a; /* 卡片面         L* 13.15 */
+  --color-surface-2: #262b35; /* 卡片 hover    L* 17.45 */
+
+  /* --- 遮罩色的 RGB 三元组，供 rgb(... / alpha) 形式引用 ---
+     单独成令牌，这样「遮罩必须等于页面底色」这个绑定关系只有一处。
+     命名为 --scrim-rgb 而不是 --color-*，是为了不让 Tailwind 为它
+     生成一个值非法的 bg-scrim-rgb 工具类。
+     唯一约束：三个数字必须与上面的 --color-void 保持一致。 */
+  --scrim-rgb: 23 26 33;
+
+  /* --- 发丝线。底色抬高后相对台阶会略微变浅，所以比重比原来稍高一点 --- */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-2: rgb(255 255 255 / 0.13);
+  --color-line-3: rgb(255 255 255 / 0.21);
+
+  /* --- 文字。对新的 surface(#1e222a) 重新核算过，全部 >= 4.5:1 --- */
+  --color-fg: #e9ecf1; /* 13.5:1 */
+  --color-fg-muted: #acb4bf; /* 7.6:1 */
+  /* fg-dim 特意留了余量：它是最容易踩线的一档。
+     #89929d 对 surface 是 5.06:1 合格，但对更亮的 surface-2(#262b35) 只有 4.50:1，
+     刚好压在及格线上。提到 #8d96a1 后对 surface-2 是 4.74:1，两个面都安全。 */
+  --color-fg-dim: #8d96a1; /* 5.3:1 on surface / 4.7:1 on surface-2 */
+
+  /* --- 唯一强调色：冷青。饱和度 61%，低于 80% 上限 --- */
+  --color-accent: #5bc8e8; /* 8.3:1 on surface */
+  --color-accent-dim: #2e7d93;
+  --color-accent-wash: rgb(91 200 232 / 0.1);
+
+  /* --- 语义色：仅错误态使用 --- */
+  --color-danger: #e0837d; /* 5.9:1 on surface */
+
+  /* --- 圆角（SHAPE LOCK） --- */
+  --radius-panel: 18px;
+  --radius-control: 10px;
+
+  /* --- 字体 --- */
+  --font-sans:
+    'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC',
+    'Noto Sans CJK SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+  --font-mono:
+    'Geist Mono Variable', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+
+  /* --- 背景动效：流体渐变 + 粒子 --- */
+  --animate-drift-a: drift-a 28s ease-in-out infinite;
+  --animate-drift-b: drift-b 36s ease-in-out infinite;
+  --animate-drift-c: drift-c 24s ease-in-out infinite;
+  --animate-rise: rise 16s linear infinite;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+
+  @keyframes drift-a {
+    0%,
+    100% {
+      transform: translate3d(-6%, -4%, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(8%, 6%, 0) scale(1.14);
+    }
+  }
+
+  @keyframes drift-b {
+    0%,
+    100% {
+      transform: translate3d(6%, 8%, 0) scale(1.08);
+    }
+    50% {
+      transform: translate3d(-8%, -6%, 0) scale(1);
+    }
+  }
+
+  @keyframes drift-c {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate3d(-4%, 8%, 0) scale(1.2);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0;
+    }
+    12% {
+      opacity: var(--particle-opacity, 0.5);
+    }
+    88% {
+      opacity: var(--particle-opacity, 0.5);
+    }
+    100% {
+      transform: translate3d(var(--particle-drift, 12px), -110vh, 0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0.35;
+    }
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-void);
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* 锚点跳转的平滑滚动同样要尊重降低动效偏好 */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-fg);
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 焦点环：全站统一用强调色，保证键盘可达性 */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgb(91 200 232 / 0.26);
+    color: var(--color-fg);
+  }
+
+  /* 中文标题收紧字距，配合 Geist 的紧凑数字观感 */
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  /* 尊重降低动效偏好：只关掉纯装饰的无限动画，保留功能性过渡 */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-drift-a,
+    .animate-drift-b,
+    .animate-drift-c,
+    .animate-rise {
+      animation: none !important;
+    }
+  }
+
+  /* 降低透明度偏好：把玻璃面板退化为实心面，保证可读性 */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-panel {
+      background-color: var(--color-surface) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+  }
+
+  /* 滚动条低调化，避免破坏暗色的整体感 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-2) transparent;
+  }
+}
+
+@utility glass-panel {
+  /* 网页版毛玻璃近似（非 Apple 官方 Liquid Glass，只是 backdrop-filter 近似实现）。
+     底色取自 --scrim-rgb，跟页面底色同源，换主题时不会留下旧黑的补丁。
+
+     alpha 用 0.72 而不是 0.6：这块玻璃唯一的使用处是 Hero 右栏的刊头面板，
+     它下面就是纤维场，发光带最亮时 0.6 会让面板里的次要文字压到 4.54:1（几乎贴线）。
+     0.72 把同一处提到 5.58:1，留出余量。 */
+  background-color: rgb(var(--scrim-rgb) / 0.72);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}

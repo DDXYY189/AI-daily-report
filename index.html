@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171A21" />
+    <title>AI 日报 · 每日 AI 行业、论文与开源速递</title>
+    <meta
+      name="description"
+      content="AI 日报：每天汇总 AI 行业新闻、技术进展、论文速递与开源项目动态，一页读完当天真正重要的变化。"
+    />
+    <style>
+      /* 首帧底色，避免暗色站点在 CSS 加载前闪白。
+         必须与 src/index.css 的 --color-void 一致，否则加载瞬间会闪一下旧底色。 */
+      html {
+        background: #171a21;
+        color-scheme: dark;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
