@@ -75,8 +75,8 @@ Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font)
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 ```
 
-完整条款见 `node_modules/@fontsource-variable/geist/LICENSE`
-（SIL Open Font License 1.1，2007-02-26 版）。
+完整条款见 `node_modules/@fontsource-variable/geist/LICENSE`。
+SPDX 标识：`OFL-1.1`（SIL Open Font License 1.1，2007-02-26 版）。
 
 中文部分不使用网络字体，直接走各系统的 CJK 字体栈，因此不涉及额外字体授权。
 

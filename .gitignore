@@ -18,3 +18,7 @@ npm-debug.log*
 .idea/
 .DS_Store
 *.local
+
+# 一次性的验证/诊断脚本。这类脚本常在 git add 之后才被创建，
+# 不忽略的话很容易被顺手提交进仓库（真发生过一次）。
+.tmp-*
